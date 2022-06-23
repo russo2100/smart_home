@@ -4,46 +4,68 @@ package ru.netology.radio;
 public class Radio {
 
     private int currentStation;
+    private int maxStation = 10;
+    private int minStation = 0;
     private int currentVolume;
+    private int maxVolume = 100;
+    private int minVolume = 0;
 
-    public void shouldIncreaseVolume() {
-        int maxVolume = 10;
-        if (currentVolume == maxVolume) {
-            return;
-        }
-        ++currentVolume;
+
+    public int getMaxVolume() {
+        return maxVolume;
     }
 
-    public void shouldDecreaseVolume() {
-        int minVolume = 0;
-        if (currentVolume == minVolume) {
-            return;
-        }
-        --currentVolume;
+
+    public int getMinVolume() {
+        return minVolume;
     }
 
-    public void shouldIncreaseStation() {
-        int maxStation = 9;
-        int minStation = 0;
-        if (currentStation == maxStation) {
-            currentStation = minStation;
-            return;
-        }
-        ++currentStation;
-    }
-
-    public void shouldDecreaseStation() {
-        int maxStation = 9;
-        int minStation = 0;
-        if (currentStation == minStation) {
-            currentStation = maxStation;
-            return;
-        }
-        --currentStation;
-    }
 
     public int getCurrentStation() {
         return currentStation;
+    }
+
+    public void setCountStation(int maxStation) {
+        if (1 > maxStation) {
+            return;
+        }
+
+        this.maxStation = maxStation;
+    }
+
+    public void setCurrentStation(int currentStation) {
+        if (currentStation > maxStation) {
+            return;
+        }
+        if (currentStation < minStation) {
+            return;
+        }
+        this.currentStation = currentStation;
+    }
+
+    public void setNextStation() {
+        if (currentStation == maxStation) {      // Круговая зависимость. После 9 будет номер 0
+            currentStation = minStation;
+            return;
+        }
+        currentStation += 1;
+    }
+
+    public void setPrevStation() {
+        if (currentStation == minStation) {      // Круговая зависимость. После 9 будет номер 0
+            currentStation = maxStation;
+            return;
+        }
+        currentStation -= 1;
+    }
+
+    public int getMaxStation() {
+        return maxStation;
+    }
+
+
+    public int getMinStation() {
+        return minStation;
     }
 
 
@@ -51,24 +73,30 @@ public class Radio {
         return currentVolume;
     }
 
-    public void setCurrentStation(int currentStation) {
-        int maxStation = 9;
-        int minStation = 0;
-        if (currentStation > maxStation || currentStation < minStation) {
-            this.currentStation = minStation;
+    public void setIncreaseVolume() {
+
+        if (currentVolume == maxVolume) {
             return;
         }
-        this.currentStation = currentStation;
+        currentVolume += 1;
     }
 
-    public void setCurrentVolume(int currentVolume) {
-        int maxVolume = 10;
-        int minVolume = 0;
-        if (currentVolume > maxVolume || currentVolume < minVolume) {
-            this.currentVolume = minVolume;
+    public void setDecreaseVolume() {
+
+        if (currentVolume == minVolume) {
             return;
         }
+        currentVolume -= 1;
+    }
 
+    public void setVolume(int currentVolume) {
+
+        if (currentVolume < minVolume) {
+            return;
+        }
+        if (currentVolume > maxVolume) {
+            return;
+        }
         this.currentVolume = currentVolume;
     }
 }
