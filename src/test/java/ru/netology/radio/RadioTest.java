@@ -20,6 +20,8 @@ class RadioTest {
         assertEquals(expectedStation, radio.getMaxStation());
     }
 
+
+
     @Test
     public void shouldNOTSetCountStation() {
         expectedStation = radio.getMaxStation();
